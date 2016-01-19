@@ -7,12 +7,11 @@ var bodyParser      = require('body-parser'),
     routes          = require('../routes'),
     slashes         = require('connect-slashes'),
     storage         = require('../storage'),
+    multer          = require('./ghost-multer'),
     passport        = require('passport'),
     utils           = require('../utils'),
     sitemapHandler  = require('../data/xml/sitemap/handler'),
-
     authStrategies   = require('./auth-strategies'),
-    busboy           = require('./ghost-busboy'),
     auth             = require('./auth'),
     cacheControl     = require('./cache-control'),
     checkSSL         = require('./check-ssl'),
@@ -33,7 +32,6 @@ var bodyParser      = require('body-parser'),
     setupMiddleware;
 
 middleware = {
-    busboy: busboy,
     cacheControl: cacheControl,
     spamPrevention: spamPrevention,
     privateBlogging: privateBlogging,
@@ -44,7 +42,8 @@ middleware = {
         requiresAuthorizedUser: auth.requiresAuthorizedUser,
         requiresAuthorizedUserPublicAPI: auth.requiresAuthorizedUserPublicAPI,
         errorHandler: errors.handleAPIError
-    }
+    },
+    multer: multer
 };
 
 setupMiddleware = function setupMiddleware(blogApp, adminApp) {
